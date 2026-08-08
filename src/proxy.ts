@@ -6,8 +6,11 @@ import { VOTER_COOKIE, VOTER_COOKIE_MAX_AGE } from "@/lib/voter";
  * Nobody signs in, so a long-lived random cookie is what keeps one person from
  * upvoting the same Tedism twenty times. Assigning it here means every page and
  * route handler can assume the token already exists.
+ *
+ * This lives in `src/` next to `app/` on purpose — sitting at the repository
+ * root it is silently never invoked.
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const existing = request.cookies.get(VOTER_COOKIE)?.value;
 
   if (existing) {

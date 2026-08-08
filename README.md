@@ -40,7 +40,7 @@ Two tables:
 
 ## How voting stays honest-ish
 
-There are no accounts. `middleware.ts` drops a long-lived random `tedisms_voter` cookie on each
+There are no accounts. `src/proxy.ts` drops a long-lived random `tedisms_voter` cookie on each
 visitor and votes are keyed to it, which stops accidental double-voting and casual button mashing.
 Anyone determined enough to clear their cookies can vote twice — for a family quote wall that
 tradeoff beats making everyone sign in.
