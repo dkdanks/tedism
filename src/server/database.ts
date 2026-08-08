@@ -45,13 +45,15 @@ function client() {
  * The schema is small and additive, so we create it on demand rather than
  * carrying a migration runner around. Every statement is `if not exists`, and
  * the promise is cached so the work happens once per server instance.
+ *
+ * Deliberately no `create extension` here: `gen_random_uuid()` is core from
+ * Postgres 13 on, and managed providers often hand out a role that cannot
+ * create extensions — which would fail this whole block on the first request.
  */
 function ensureSchema(db: postgres.Sql) {
   if (!schemaReady) {
     schemaReady = (async () => {
       await db.unsafe(`
-        create extension if not exists "pgcrypto";
-
         create table if not exists quotes (
           id          uuid primary key default gen_random_uuid(),
           quote       text        not null,

@@ -2,7 +2,7 @@
 -- Applied automatically on first database access (see src/server/database.ts),
 -- and safe to run by hand against a fresh Postgres/Supabase database.
 
-create extension if not exists "pgcrypto";
+-- Requires Postgres 13+ for the built-in gen_random_uuid().
 
 create table if not exists quotes (
   id          uuid primary key default gen_random_uuid(),
